@@ -21,25 +21,33 @@ public class PlaceholderAPIPlaceholderFactory implements IndividualPlaceholderFa
             return new ImmutablePlaceholder("[PlaceholderAPI not enabled in configuration]");
         }
 
-        if (argument == null) {
-            return null;
-        }
+        if (argument == null) return null;
 
-        return new PlaceholderAPIPlaceholder("%" + argument + "%");
+        String placeholder = argument;
+        int refreshRateTicks = 200;
+
+        try {
+            placeholder = argument.split(":")[0];
+            refreshRateTicks = Integer.valueOf(argument.split(":")[1]);
+        } catch (ArrayIndexOutOfBoundsException ex) { }
+
+        return new PlaceholderAPIPlaceholder("%" + placeholder + "%", refreshRateTicks);
     }
 
 
     private static class PlaceholderAPIPlaceholder implements IndividualPlaceholder {
 
         private final String content;
+        private final int refreshRateTicks;
 
-        PlaceholderAPIPlaceholder(String content) {
+        PlaceholderAPIPlaceholder(String content, int refreshRateTicks) {
             this.content = content;
+            this.refreshRateTicks = refreshRateTicks;
         }
 
         @Override
         public int getRefreshIntervalTicks() {
-            return Settings.placeholderAPIDefaultRefreshInternalTicks;
+            return refreshRateTicks;
         }
 
         @Override
@@ -50,7 +58,6 @@ public class PlaceholderAPIPlaceholderFactory implements IndividualPlaceholderFa
 
             return PlaceholderAPIHook.replacePlaceholders(player, content);
         }
-
     }
 
 }
