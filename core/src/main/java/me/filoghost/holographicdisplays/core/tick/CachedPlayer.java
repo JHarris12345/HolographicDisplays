@@ -31,10 +31,12 @@ public class CachedPlayer {
             return true;
         }
 
+        // Changed from double coords to int coords so we are checking only
+        // when a player has moved 1 block and not inside 1 block
         return newLocation.getWorld() != oldLocation.getWorld()
-                || newLocation.getX() != oldLocation.getX()
-                || newLocation.getY() != oldLocation.getY()
-                || newLocation.getZ() != oldLocation.getZ();
+                || newLocation.getBlockX() != oldLocation.getBlockX()
+                || newLocation.getBlockY() != oldLocation.getBlockY()
+                || newLocation.getBlockZ() != oldLocation.getBlockZ();
     }
 
     public Player getBukkitPlayer() {
