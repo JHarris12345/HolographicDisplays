@@ -59,5 +59,4 @@ public class PlaceholderAPIPlaceholderFactory implements IndividualPlaceholderFa
             return PlaceholderAPIHook.replacePlaceholders(player, content);
         }
     }
-
 }
