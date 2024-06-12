@@ -8,6 +8,7 @@ package me.filoghost.holographicdisplays.nms.v1_20_R4;
 import me.filoghost.holographicdisplays.common.PositionCoordinates;
 import me.filoghost.holographicdisplays.nms.common.EntityID;
 import net.minecraft.network.PacketDataSerializer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
 
@@ -46,9 +47,9 @@ class EntitySpawnNMSPacket extends VersionNMSPacket {
         packetByteBuffer.writeShort(0);
         packetByteBuffer.writeShort(0);
 
-        try {
+        /*try {
             Class<?> packetClass = Class.forName("net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity");
-            Constructor<?> constructor = packetClass.getDeclaredConstructor(PacketDataSerializer.class);
+            Constructor<?> constructor = packetClass.getDeclaredConstructor(RegistryFriendlyByteBuf.class);
             constructor.setAccessible(true);
 
             this.rawPacket = (Packet<?>) constructor.newInstance(packetByteBuffer.getInternalSerializer());
@@ -56,7 +57,7 @@ class EntitySpawnNMSPacket extends VersionNMSPacket {
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override

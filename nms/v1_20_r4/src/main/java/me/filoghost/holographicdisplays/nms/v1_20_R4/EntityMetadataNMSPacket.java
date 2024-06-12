@@ -6,6 +6,7 @@
 package me.filoghost.holographicdisplays.nms.v1_20_R4;
 
 import me.filoghost.holographicdisplays.nms.common.EntityID;
+import net.minecraft.network.PacketDataSerializer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
@@ -20,7 +21,7 @@ class EntityMetadataNMSPacket extends VersionNMSPacket {
     private EntityMetadataNMSPacket(PacketByteBuffer packetByteBuffer) {
         try {
             Class<?> packetClass = Class.forName("net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata");
-            Constructor<?> constructor = packetClass.getDeclaredConstructor(RegistryFriendlyByteBuf.class);
+            Constructor<?> constructor = packetClass.getDeclaredConstructor(PacketDataSerializer.class);
             constructor.setAccessible(true);
 
             this.rawPacket = (Packet<?>) constructor.newInstance(packetByteBuffer.getInternalSerializer());
@@ -52,7 +53,5 @@ class EntityMetadataNMSPacket extends VersionNMSPacket {
         EntityMetadataNMSPacket createPacket(PacketByteBuffer packetByteBuffer) {
             return new EntityMetadataNMSPacket(packetByteBuffer);
         }
-
     }
-
 }
