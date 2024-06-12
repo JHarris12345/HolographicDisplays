@@ -68,6 +68,9 @@ public enum NMSVersion {
         String version = Bukkit.getBukkitVersion();
 
         switch (version) {
+            case "1.20.2-R0.1-SNAPSHOT":
+                return valueOf("v1_20_R2");
+
             case "1.20.6-R0.1-SNAPSHOT":
                 return valueOf("v1_20_R4");
         }

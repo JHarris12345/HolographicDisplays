@@ -47,6 +47,8 @@ public class HolographicDisplaysCore {
             throw new PluginEnableException(t, "Couldn't initialize the NMS manager.");
         }
 
+        plugin.getLogger().info("Using NMS version " + NMSVersion.getCurrent());
+
         PlaceholderRegistry placeholderRegistry = new PlaceholderRegistry();
         TickClock tickClock = new TickClock();
         ActivePlaceholderTracker placeholderTracker = new ActivePlaceholderTracker(placeholderRegistry, tickClock);
