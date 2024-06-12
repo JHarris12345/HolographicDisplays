@@ -7,6 +7,7 @@ package me.filoghost.holographicdisplays.core;
 
 import me.filoghost.fcommons.logging.ErrorCollector;
 import me.filoghost.holographicdisplays.nms.common.NMSManager;
+import me.filoghost.holographicdisplays.nms.v1_20_R4.VersionNMSManager;
 import org.bukkit.Bukkit;
 
 import java.util.regex.Matcher;
@@ -43,7 +44,8 @@ public enum NMSVersion {
     /* 1.19.4          */ v1_19_R3(errorCollector -> new me.filoghost.holographicdisplays.nms.v1_19_R3.VersionNMSManager(errorCollector)),
     /* 1.20 - 1.20.1   */ v1_20_R1(errorCollector -> new me.filoghost.holographicdisplays.nms.v1_20_R1.VersionNMSManager(errorCollector)),
     /* 1.20.2          */ v1_20_R2(errorCollector -> new me.filoghost.holographicdisplays.nms.v1_20_R2.VersionNMSManager(errorCollector)),
-    /* 1.20.3 - 1.20.4 */ v1_20_R3(errorCollector -> new me.filoghost.holographicdisplays.nms.v1_20_R3.VersionNMSManager(errorCollector)),
+    /* 1.20.3 - 1.20.4 */ v1_20_R3(errorCollector -> new VersionNMSManager(errorCollector)),
+    /* 1.20.5 - 1.20.6 */ v1_20_R4(errorCollector -> new me.filoghost.holographicdisplays.nms.v1_20_R4.VersionNMSManager(errorCollector)),
     /* Other versions  */ UNKNOWN(NMSManagerFactory.unknownVersion());
 
     private static final NMSVersion CURRENT_VERSION = detectCurrentVersion();
@@ -63,7 +65,17 @@ public enum NMSVersion {
     }
 
     private static NMSVersion detectCurrentVersion() {
-        Matcher matcher = Pattern.compile("v\\d+_\\d+_R\\d+").matcher(Bukkit.getServer().getClass().getPackage().getName());
+        String version = Bukkit.getBukkitVersion();
+
+        switch (version) {
+            case "1.20.6-R0.1-SNAPSHOT":
+                return valueOf("v1_20_R4");
+        }
+
+        return UNKNOWN;
+        /*String packageName = Bukkit.getServer().getClass().getPackage().getName();
+        Matcher matcher = Pattern.compile("v\\d+_\\d+_R\\d+").matcher(packageName);
+
         if (!matcher.find()) {
             return UNKNOWN;
         }
@@ -73,7 +85,7 @@ public enum NMSVersion {
             return valueOf(nmsVersionName);
         } catch (IllegalArgumentException e) {
             return UNKNOWN;
-        }
+        }*/
     }
 
 

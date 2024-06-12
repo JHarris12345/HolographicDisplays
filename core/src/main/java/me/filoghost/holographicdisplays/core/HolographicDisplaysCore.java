@@ -37,12 +37,10 @@ public class HolographicDisplaysCore {
     private V2HologramManager v2HologramManager;
 
     public void enable(Plugin plugin, ErrorCollector errorCollector) throws PluginEnableException {
-        String nmsVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
         try {
             nmsManager = NMSVersion.getCurrent().createNMSManager(errorCollector);
         } catch (UnknownVersionException e) {
-            throw new PluginEnableException("Could not find NMS for " + nmsVersion);
+            throw new PluginEnableException("Could not find NMS adapter for v" + Bukkit.getBukkitVersion());
         } catch (OutdatedVersionException e) {
             throw new PluginEnableException("Holographic Displays only supports " + e.getMinimumSupportedVersion() + " and above.");
         } catch (Throwable t) {
